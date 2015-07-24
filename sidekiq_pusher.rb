@@ -23,3 +23,4 @@ end
 
 # NOTE: the keys of the hash passed to `push` must be of type `String`
 Sidekiq::Client.push('class' => klass, 'args' => [])
+puts "sidekiq:push:#{klass}"
