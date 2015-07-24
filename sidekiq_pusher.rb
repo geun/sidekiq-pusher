@@ -1,8 +1,13 @@
 #! /usr/bin/env ruby
 # scripts/sidekiq_pusher.rb
 # bundle exec scripts/sidekiq_pusher.rb Warehouse::FtpPull
+
 klass = ARGV[0]
 require 'sidekiq'
+require 'logger'
+
+$stdout.sync = true
+logger = Logger.new($stdout)
 
 redis_domain = ENV['REDIS_HOST']
 redis_port   = ENV['REDIS_PORT']
@@ -23,4 +28,4 @@ end
 
 # NOTE: the keys of the hash passed to `push` must be of type `String`
 Sidekiq::Client.push('class' => klass, 'args' => [])
-puts "sidekiq:push:#{klass}"
+logger.info "sidekiq:push:#{klass}"
