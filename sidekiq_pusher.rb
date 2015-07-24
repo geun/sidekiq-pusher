@@ -21,6 +21,8 @@ raise 'invalid environment' unless sidekiq_namespace
 raise 'invalid environment' unless klass
 
 redis_url = "redis://#{redis_domain}:#{redis_port}/#{sidekiq_worker_db}"
+
+logger.info "connected redis on #{redis_url}"
 Sidekiq.configure_client do |config|
   # config.redis = { url: "redis://#{ENV["REDIS_HOST"]}:#{ENV["REDIS_PORT"]}/#{ENV["SIDEKIQ_WORKER_DB"]}", namespace: "chattingcat_sidekiq_#{Rails.env}" }
   config.redis = { url: redis_url, namespace: sidekiq_namespace }
