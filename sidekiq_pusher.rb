@@ -14,11 +14,11 @@ redis_port   = ENV['REDIS_PORT']
 sidekiq_worker_db   = ENV['SIDEKIQ_WORKER_DB']
 sidekiq_namespace = ENV['SIDEKIQ_NAMESPACE']
 
-raise 'invalid environment' unless redis_domain
-raise 'invalid environment' unless redis_port
-raise 'invalid environment' unless sidekiq_worker_db
-raise 'invalid environment' unless sidekiq_namespace
-raise 'invalid environment' unless klass
+raise(ArgumentError,'invalid redis_domain') unless redis_domain
+raise(ArgumentError, 'invalid redis_port') unless redis_port
+raise(ArgumentError, 'invalid sidekiq_worker_db') unless sidekiq_worker_db
+raise(ArgumentError, 'invalid sidekiq_namespace') unless sidekiq_namespace
+raise(ArgumentError, 'invalid klass') unless klass
 
 redis_url = "redis://#{redis_domain}:#{redis_port}/#{sidekiq_worker_db}"
 
